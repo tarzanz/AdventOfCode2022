@@ -1,0 +1,126 @@
+filePath = 'Day02/ROS_strat.txt'
+
+def ROC(p1,p2):
+    # For p1 (opponent):
+    #  A = Rock
+    #  B = Paper
+    #  C = Siccors
+    # 
+    # For p2 (you):
+    #  X = Rock
+    #  Y = Paper
+    #  Z = Siccors
+
+    if p2 == 'X':
+    # You play Rock
+        points = 1
+        if p1 == 'A':
+        # Opponent play Rock -> Draw
+            points += 3
+        elif p1 == 'B':
+        # Opponent play Paper -> Lose
+            points += 0
+        elif p1 == 'C':
+        # Opponent play Siccors -> Win
+            points += 6
+        else:
+            raise Exception
+    elif p2 == 'Y':
+    # You play Paper
+        points = 2
+        if p1 == 'A':
+        # Opponent play Rock -> Win
+            points += 6
+        elif p1 == 'B':
+        # Opponent play Paper -> Draw
+            points += 3
+        elif p1 == 'C':
+        # Opponent play Siccors -> Lose
+            points += 0
+        else:
+            raise Exception
+    elif p2 == 'Z':
+    # You play Siccors
+        points = 3
+        if p1 == 'A':
+        # Opponent play Rock -> Lose
+            points += 0
+        elif p1 == 'B':
+        # Opponent play Paper -> Win
+            points += 6
+        elif p1 == 'C':
+        # Opponent play Siccors -> Draw
+            points += 3
+        else:
+            raise Exception
+    else:
+        raise Exception
+    return points
+
+def ROC2(p1,res):
+    # For p1 (opponent):
+    #  A = Rock
+    #  B = Paper
+    #  C = Siccors
+    # 
+    # For p2 (you):
+    #  X = Rock
+    #  Y = Paper
+    #  Z = Siccors
+    if res == 'X':
+    # You need to loose
+        points = 0
+        if p1 == 'A':
+        # Opponent play Rock -> Siccors
+            points += 3
+        elif p1 == 'B':
+        # Opponent play Paper -> Rock
+            points += 1
+        elif p1 == 'C':
+        # Opponent play Siccors -> Paper
+            points += 2
+        else:
+            raise Exception
+    elif res == 'Y':
+    # You need to draw
+        points = 3
+        if p1 == 'A':
+        # Opponent play Rock -> Rock
+            points += 1
+        elif p1 == 'B':
+        # Opponent play Paper -> Paper
+            points += 2
+        elif p1 == 'C':
+        # Opponent play Siccors -> Siccors
+            points += 3
+        else:
+            raise Exception
+    elif res == 'Z':
+    # You need to win
+        points = 6
+        if p1 == 'A':
+        # Opponent play Rock -> Paper
+            points += 2
+        elif p1 == 'B':
+        # Opponent play Paper -> Siccors
+            points += 3
+        elif p1 == 'C':
+        # Opponent play Siccors -> Rock
+            points += 1
+        else:
+            raise Exception
+    else:
+        raise Exception
+    return points
+
+with open(filePath) as f:
+    mylist = f.read().splitlines()
+
+    pointTotalPart1 = 0
+    pointTotal = 0
+    for row in mylist:
+        pointTotalPart1 += ROC(row[0],row[2])
+        pointTotal += ROC2(row[0],row[2])
+    
+    print(f"Total player score (part 1): {pointTotalPart1}")
+    print(f"Total player score (part 2): {pointTotal}")
